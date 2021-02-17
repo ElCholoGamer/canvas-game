@@ -10,7 +10,7 @@ const mode = process.env.NODE_ENV ?? 'development';
 /** @type {import('webpack').Configuration} */
 const config = {
 	mode,
-	devtool: 'eval-source-map',
+	devtool: 'source-map',
 	target: 'es5',
 	entry: resolve(__dirname, 'src/index.ts'),
 	output: {

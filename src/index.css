@@ -1,0 +1,13 @@
+body {
+	background-color: black;
+}
+
+#container {
+	width: 100%;
+	text-align: center;
+}
+
+#game {
+	border: 10px solid white;
+	background-color: black;
+}

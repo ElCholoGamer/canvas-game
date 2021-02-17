@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const pkg = require('./package.json');
 const { resolve } = require('path');
 
 const mode = process.env.NODE_ENV ?? 'development';
@@ -14,7 +15,7 @@ const config = {
 	entry: resolve(__dirname, 'src/index.ts'),
 	output: {
 		filename: 'js/[name].[contenthash:8].js',
-		publicPath: '/',
+		publicPath: '/' + pkg.name,
 		chunkFilename: 'js/[name].[contenthash:8].chunk.js',
 		path: resolve(__dirname, 'build'),
 	},

@@ -38,10 +38,7 @@ class Player extends GameObject {
 	}
 
 	public render(ctx: CanvasRenderingContext2D) {
-		ctx.fillStyle = 'red';
-
 		ctx.imageSmoothingEnabled = false;
-
 		ctx.drawImage(this.sprite, this.x, this.y, this.SIZE, this.SIZE);
 	}
 }

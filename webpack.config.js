@@ -25,9 +25,6 @@ const config = {
 	resolve: {
 		extensions: ['.js', '.ts'],
 	},
-	devServer: {
-		hot: true,
-	},
 	module: {
 		rules: [
 			{

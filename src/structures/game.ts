@@ -6,7 +6,7 @@ class Game {
 
 	private readonly objects: GameObject[] = [];
 
-	public constructor(private readonly canvas: HTMLCanvasElement) {}
+	public constructor(public readonly canvas: HTMLCanvasElement) {}
 
 	public start() {
 		setInterval(() => this.update(), 1000 / 60);

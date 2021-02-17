@@ -9,6 +9,12 @@
 		"dev": "cross-env NODE_ENV=development webpack serve",
 		"build": "cross-env NODE_ENV=production webpack"
 	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ElCholoGamer/canvas-game"
+	},
+	"homepage": "https://github.com/ElCholoGamer/canvas-game#readme",
+	"bugs": "https://github.com/ElCholoGamer/canvas-game/issues",
 	"devDependencies": {
 		"@babel/core": "^7.12.16",
 		"@babel/plugin-transform-runtime": "^7.12.15",

@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "ES5",
 		"module": "CommonJS",
 		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
@@ -10,7 +10,8 @@
 		"skipLibCheck": true,
 		"removeComments": true,
 		"moduleResolution": "Node",
-		"sourceMap": true
+		"sourceMap": true,
+		"lib": ["DOM", "ES2020"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules"]

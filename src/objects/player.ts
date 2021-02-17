@@ -3,8 +3,8 @@ import GameObject from '../structures/game-object';
 import Heart from '../assets/heart.png';
 
 class Player extends GameObject {
-	private readonly SIZE = 50;
-	private readonly SPEED = 5.5;
+	private readonly SIZE = 30;
+	private readonly SPEED = 4.5;
 
 	private readonly sprite = new Image();
 	private x: number;
@@ -23,15 +23,15 @@ class Player extends GameObject {
 	public tick() {
 		const { controls, canvas } = this.game;
 
-		const w = controls.isKeyDown('w');
-		const a = controls.isKeyDown('a');
-		const s = controls.isKeyDown('s');
-		const d = controls.isKeyDown('d');
+		const up = controls.isKeyDown('ArrowUp') || controls.isKeyDown('w');
+		const left = controls.isKeyDown('ArrowLeft') || controls.isKeyDown('a');
+		const down = controls.isKeyDown('ArrowDown') || controls.isKeyDown('s');
+		const right = controls.isKeyDown('ArrowRight') || controls.isKeyDown('d');
 
-		if (w) this.y -= this.SPEED;
-		if (a) this.x -= this.SPEED;
-		if (s) this.y += this.SPEED;
-		if (d) this.x += this.SPEED;
+		if (up) this.y -= this.SPEED;
+		if (left) this.x -= this.SPEED;
+		if (down) this.y += this.SPEED;
+		if (right) this.x += this.SPEED;
 
 		this.x = Math.clamp(this.x, 0, canvas.width - this.SIZE);
 		this.y = Math.clamp(this.y, 0, canvas.height - this.SIZE);

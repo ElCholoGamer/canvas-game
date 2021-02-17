@@ -2,7 +2,7 @@ class ControlManager {
 	private readonly keys = new Map<string, boolean>();
 
 	public constructor() {
-		document.addEventListener('keypress', e => this.handleKeyPress(e));
+		document.addEventListener('keydown', e => this.handleKeyPress(e));
 		document.addEventListener('keyup', e => this.handleKeyUp(e));
 	}
 

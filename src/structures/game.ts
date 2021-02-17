@@ -9,7 +9,7 @@ class Game {
 	public constructor(public readonly canvas: HTMLCanvasElement) {}
 
 	public start() {
-		setInterval(() => this.update(), 1000 / 60);
+		this.update();
 	}
 
 	private update() {
@@ -17,10 +17,13 @@ class Game {
 		const ctx = this.canvas.getContext('2d')!;
 		ctx.clearRect(0, 0, width, height);
 
+		console.log('Ticking');
 		for (const obj of this.objects) {
 			obj.tick(this);
 			obj.render(ctx);
 		}
+
+		requestAnimationFrame(() => this.update());
 	}
 
 	public addObject(obj: GameObject) {

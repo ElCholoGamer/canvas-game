@@ -4,6 +4,11 @@ class ControlManager {
 	public constructor() {
 		document.addEventListener('keydown', e => this.handleKeyPress(e));
 		document.addEventListener('keyup', e => this.handleKeyUp(e));
+		window.addEventListener('blur', () => this.handleBlur());
+	}
+
+	public isKeyDown(key: string): boolean {
+		return this.keys.get(key) ?? false;
 	}
 
 	private handleKeyPress(e: KeyboardEvent) {
@@ -14,8 +19,8 @@ class ControlManager {
 		this.keys.set(e.key, false);
 	}
 
-	public isKeyDown(key: string): boolean {
-		return this.keys.get(key) ?? false;
+	private handleBlur() {
+		this.keys.clear();
 	}
 }
 

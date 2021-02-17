@@ -15,7 +15,7 @@ const config = {
 	entry: resolve(__dirname, 'src/index.ts'),
 	output: {
 		filename: 'js/[name].[contenthash:8].js',
-		publicPath: '/' + pkg.name,
+		publicPath: mode === 'production' ? '/' + pkg.name : '/',
 		chunkFilename: 'js/[name].[contenthash:8].chunk.js',
 		path: resolve(__dirname, 'build'),
 	},
@@ -56,6 +56,7 @@ const config = {
 				loader: 'file-loader',
 				options: {
 					name: '[folder]/[name].[ext]',
+					publicPath: mode === 'production' ? '/' + pkg.name : '/',
 				},
 			},
 		],
@@ -73,6 +74,7 @@ const config = {
 		contentBase: resolve(__dirname, 'build'),
 		port: 3000,
 		hot: true,
+		publicPath: '/',
 	},
 };
 

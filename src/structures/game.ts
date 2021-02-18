@@ -1,7 +1,7 @@
 import Player from '../objects/player';
 import Attack from './attack';
 import ControlManager from './player/control-manager';
-import GameObject from './game-object';
+import GameObject from './object/game-object';
 import Scheduler from './scheduler';
 import SpriteManager from './sprite-manager';
 

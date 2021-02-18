@@ -1,7 +1,7 @@
 import Game from '../structures/game';
-import GameObject from '../structures/game-object';
-import RectBounds from '../structures/rect-bounds';
-import Tag from '../structures/tag';
+import GameObject from '../structures/object/game-object';
+import RectBounds from '../structures/object/rect-bounds';
+import Tag from '../structures/object/tag';
 
 class VerticalBone extends GameObject {
 	public readonly HEIGHT = 200;

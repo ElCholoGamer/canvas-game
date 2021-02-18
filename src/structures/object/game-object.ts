@@ -1,4 +1,4 @@
-import Game from './game';
+import Game from '../game';
 import RectBounds from './rect-bounds';
 import Tag from './tag';
 

@@ -1,7 +1,7 @@
-import GameObject from '../structures/game-object';
+import GameObject from '../structures/object/game-object';
 import Game from '../structures/game';
-import RectBounds from '../structures/rect-bounds';
-import Tag from '../structures/tag';
+import RectBounds from '../structures/object/rect-bounds';
+import Tag from '../structures/object/tag';
 
 class HorizontalBone extends GameObject {
 	public readonly WIDTH = 200;

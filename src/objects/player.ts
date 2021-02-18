@@ -1,9 +1,9 @@
 import Game from '../structures/game';
-import GameObject from '../structures/game-object';
+import GameObject from '../structures/object/game-object';
 import HurtAudio from '../assets/sound/hurt.mp3';
-import RectBounds from '../structures/rect-bounds';
+import RectBounds from '../structures/object/rect-bounds';
 import GameMode from '../structures/player/game-mode';
-import Tag from '../structures/tag';
+import Tag from '../structures/object/tag';
 
 class Player extends GameObject {
 	public readonly SPEED = 4;

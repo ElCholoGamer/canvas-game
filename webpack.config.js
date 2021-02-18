@@ -52,7 +52,7 @@ const config = {
 				use: [MiniCssExtractPlugin.loader, 'css-loader'],
 			},
 			{
-				test: /\.(png|jpe?g|gif)$/i,
+				test: /\.(png|jpe?g|gif|mp3|ogg|wav)$/i,
 				loader: 'file-loader',
 				options: {
 					name: '[folder]/[name].[ext]',

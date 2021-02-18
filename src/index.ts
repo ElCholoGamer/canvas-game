@@ -1,8 +1,10 @@
 import Game from './structures/game';
 import BoneElevator from './attacks/bone-elevator';
-import BoneSprite from './assets/img/bone.png';
+import HorizontalBoneSprite from './assets/img/horizontal-bone.png';
+import VerticalBoneSprite from './assets/img/vertical-bone.png';
 import HeartSprite from './assets/img/heart.png';
 import './index.css';
+import BoneGap from './attacks/bone-gap';
 
 Math.clamp = function (n, min, max) {
 	return Math.max(min, Math.min(n, max));
@@ -17,10 +19,12 @@ canvas.oncontextmenu = e => {
 
 const game = new Game(canvas);
 game.addAttack(BoneElevator);
+game.addAttack(BoneGap);
 
 (async () => {
 	await game.sprites.load('heart', HeartSprite);
-	await game.sprites.load('horizontalBone', BoneSprite);
+	await game.sprites.load('horizontalBone', HorizontalBoneSprite);
+	await game.sprites.load('verticalBone', VerticalBoneSprite);
 
 	game.start();
 })();

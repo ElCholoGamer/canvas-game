@@ -1,9 +1,9 @@
 import Game from '../structures/game';
 import GameObject from '../structures/game-object';
 import HurtAudio from '../assets/sound/hurt.mp3';
-import HorizontalBone from './horizontal-bone';
 import RectBounds from '../structures/rect-bounds';
 import GameMode from '../structures/player/game-mode';
+import Tag from '../structures/tag';
 
 class Player extends GameObject {
 	public readonly SPEED = 4;
@@ -12,12 +12,13 @@ class Player extends GameObject {
 	private readonly sprite;
 	private readonly hurtAudio = new Audio(HurtAudio);
 
-	private mode = GameMode.RED;
 	private vulnerable = true;
 	private transparent = false;
 
+	public mode = GameMode.RED;
+
 	public constructor(game: Game) {
-		super(game, 10);
+		super(game, { layer: 10 });
 
 		const { width, height } = game.canvas;
 		this.x = width / 2 - this.SIZE / 2;
@@ -37,10 +38,7 @@ class Player extends GameObject {
 			const bounds = this.getBounds();
 
 			for (const obj of this.game.objects) {
-				if (
-					!(obj instanceof HorizontalBone) ||
-					!obj.getBounds().collide(bounds)
-				)
+				if (obj.options.tag !== Tag.ENEMY || !obj.getBounds().collide(bounds))
 					continue;
 
 				this.vulnerable = false;

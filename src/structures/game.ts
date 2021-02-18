@@ -40,7 +40,9 @@ class Game {
 		const ctx = this.canvas.getContext('2d')!;
 
 		// Render objects
-		const sorted = this._objects.sort((a, b) => a.LAYER - b.LAYER);
+		const sorted = this._objects.sort(
+			(a, b) => (a.options.layer || 0) - (b.options.layer || 0)
+		);
 		ctx.clearRect(0, 0, width, height);
 
 		for (const obj of sorted) {
@@ -51,12 +53,14 @@ class Game {
 	}
 
 	private nextAttack() {
-		if (!this.attacks.length) return;
+		if (!this.attacks.length || !this._player) return;
 
 		const ctor = this.attacks[Math.floor(Math.random() * this.attacks.length)];
 		const attack = new ctor(this);
 
+		this._player.mode = attack.mode;
 		attack.start();
+
 		this.scheduler.schedule(() => {
 			attack.stop();
 			this.scheduler.schedule(() => this.nextAttack(), 60);

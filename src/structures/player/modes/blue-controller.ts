@@ -45,7 +45,7 @@ class BlueController extends ModeController {
 				this.jumpTicksLeft--;
 			}
 		} else if (this.jumpTicksLeft > 0) {
-			this.verticalSpeed = -(this.MAX_JUMP_TICKS - this.jumpTicksLeft) * 0.6;
+			this.verticalSpeed = -(this.MAX_JUMP_TICKS - this.jumpTicksLeft) * 0.2;
 			this.jumpTicksLeft = 0;
 		}
 

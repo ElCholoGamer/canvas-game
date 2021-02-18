@@ -1,6 +1,7 @@
 import GameObject from '../structures/game-object';
 import Game from '../structures/game';
 import RectBounds from '../structures/rect-bounds';
+import Tag from '../structures/tag';
 
 class HorizontalBone extends GameObject {
 	public readonly WIDTH = 200;
@@ -8,17 +9,16 @@ class HorizontalBone extends GameObject {
 
 	private readonly sprite: HTMLImageElement;
 
-	public constructor(game: Game, x: number, private readonly SPEED: number) {
-		super(game);
+	public constructor(game: Game, private readonly SPEED: number) {
+		super(game, { tag: Tag.ENEMY });
 
 		const bone = game.sprites.get('horizontalBone');
 		if (!bone) throw new Error('Horizontal bone sprite missing');
 
 		this.sprite = bone;
 
-		this.HEIGHT = this.sprite.height * (this.WIDTH / this.sprite.width);
+		this.HEIGHT = bone.height * (this.WIDTH / bone.width);
 
-		this.x = x;
 		this.y = SPEED < 0 ? game.canvas.height : -this.HEIGHT;
 	}
 

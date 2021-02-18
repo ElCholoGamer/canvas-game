@@ -6,3 +6,8 @@ declare module '*.png' {
 	declare const url: string;
 	export default url;
 }
+
+declare module '*.mp3' {
+	declare const url: string;
+	export default url;
+}

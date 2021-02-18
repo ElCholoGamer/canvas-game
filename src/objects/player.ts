@@ -1,23 +1,29 @@
 import Game from '../structures/game';
 import GameObject from '../structures/game-object';
-import Heart from '../assets/heart.png';
+import HurtAudio from '../assets/sound/hurt.mp3';
+import HorizontalBone from './horizontal-bone';
+import RectBounds from '../structures/rect-bounds';
 
 class Player extends GameObject {
-	private readonly SIZE = 30;
-	private readonly SPEED = 4.5;
+	private readonly SIZE = 25;
+	private readonly SPEED = 4;
 
-	private readonly sprite = new Image();
-	private x: number;
-	private y: number;
+	private readonly sprite;
+	private readonly hurtAudio = new Audio(HurtAudio);
 
-	public constructor(private readonly game: Game) {
-		super();
+	private vulnerable = true;
+
+	public constructor(game: Game) {
+		super(game, 10);
 
 		const { width, height } = game.canvas;
 		this.x = width / 2 - this.SIZE / 2;
 		this.y = height / 2 - this.SIZE / 2;
 
-		this.sprite.src = Heart;
+		const heart = game.sprites.get('heart');
+		if (!heart) throw new Error('Heart sprite missing');
+
+		this.sprite = heart;
 	}
 
 	public tick() {
@@ -35,11 +41,36 @@ class Player extends GameObject {
 
 		this.x = Math.clamp(this.x, 0, canvas.width - this.SIZE);
 		this.y = Math.clamp(this.y, 0, canvas.height - this.SIZE);
+
+		// Check bone collisions
+		if (this.vulnerable) {
+			const bounds = this.getBounds();
+
+			for (const obj of this.game.objects) {
+				if (
+					!(obj instanceof HorizontalBone) ||
+					!obj.getBounds().collide(bounds)
+				)
+					continue;
+
+				this.vulnerable = false;
+				this.hurtAudio.play();
+				this.game.scheduler.schedule(() => {
+					this.vulnerable = true;
+				}, 30);
+
+				break;
+			}
+		}
 	}
 
 	public render(ctx: CanvasRenderingContext2D) {
 		ctx.imageSmoothingEnabled = false;
 		ctx.drawImage(this.sprite, this.x, this.y, this.SIZE, this.SIZE);
+	}
+
+	public getBounds() {
+		return new RectBounds(this.x, this.y, this.SIZE, this.SIZE);
 	}
 }
 

@@ -55,7 +55,7 @@ const config = {
 				test: /\.(png|jpe?g|gif|mp3|ogg|wav)$/i,
 				loader: 'file-loader',
 				options: {
-					name: '[folder]/[name].[ext]',
+					name: 'assets/[folder]/[name].[ext]',
 					publicPath,
 				},
 			},

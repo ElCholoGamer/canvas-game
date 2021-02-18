@@ -1,6 +1,7 @@
 import HorizontalBone from '../objects/horizontal-bone';
 import Attack from '../structures/attack';
 import Game from '../structures/game';
+import GameMode from '../structures/player/game-mode';
 
 class BoneElevator extends Attack {
 	private readonly BONE_SPEED = 3.5;
@@ -8,7 +9,7 @@ class BoneElevator extends Attack {
 	private timer: number | null = null;
 
 	public constructor(game: Game) {
-		super(game, 600);
+		super(game, { duration: 600, mode: GameMode.RED });
 	}
 
 	public start() {

@@ -12,7 +12,7 @@ abstract class GameObject {
 	public constructor(game: Game, x: number, y: number, layer: number);
 	public constructor(game: Game, x: number, y: number, layer: number);
 	public constructor(
-		protected readonly game: Game,
+		public readonly game: Game,
 		xOrLayer?: number,
 		y?: number,
 		LAYER?: number

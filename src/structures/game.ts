@@ -1,6 +1,6 @@
 import Player from '../objects/player';
 import Attack from './attack';
-import ControlManager from './control-manager';
+import ControlManager from './player/control-manager';
 import GameObject from './game-object';
 import Scheduler from './scheduler';
 import SpriteManager from './sprite-manager';
@@ -8,6 +8,7 @@ import SpriteManager from './sprite-manager';
 type AttackConstructor = new (game: Game) => Attack;
 
 class Game {
+	private _player: Player | null = null;
 	public readonly controls = new ControlManager();
 	public readonly scheduler = new Scheduler();
 	public readonly sprites = new SpriteManager();
@@ -20,7 +21,8 @@ class Game {
 	}
 
 	public start() {
-		this.addObject(new Player(this));
+		this._player = new Player(this);
+		this.addObject(this._player);
 
 		requestAnimationFrame(this.update);
 		this.scheduler.schedule(() => this.nextAttack(), 60);
@@ -75,6 +77,10 @@ class Game {
 
 	public get objects(): ReadonlyArray<GameObject> {
 		return this._objects;
+	}
+
+	public get player() {
+		return this._player;
 	}
 }
 

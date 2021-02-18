@@ -3,15 +3,18 @@ import GameObject from '../structures/game-object';
 import HurtAudio from '../assets/sound/hurt.mp3';
 import HorizontalBone from './horizontal-bone';
 import RectBounds from '../structures/rect-bounds';
+import GameMode from '../structures/player/game-mode';
 
 class Player extends GameObject {
-	private readonly SIZE = 25;
-	private readonly SPEED = 4;
+	public readonly SPEED = 4;
+	public readonly SIZE = 25;
 
 	private readonly sprite;
 	private readonly hurtAudio = new Audio(HurtAudio);
 
+	private mode = GameMode.RED;
 	private vulnerable = true;
+	private transparent = false;
 
 	public constructor(game: Game) {
 		super(game, 10);
@@ -27,20 +30,7 @@ class Player extends GameObject {
 	}
 
 	public tick() {
-		const { controls, canvas } = this.game;
-
-		const up = controls.isKeyDown('ArrowUp') || controls.isKeyDown('w');
-		const left = controls.isKeyDown('ArrowLeft') || controls.isKeyDown('a');
-		const down = controls.isKeyDown('ArrowDown') || controls.isKeyDown('s');
-		const right = controls.isKeyDown('ArrowRight') || controls.isKeyDown('d');
-
-		if (up) this.y -= this.SPEED;
-		if (left) this.x -= this.SPEED;
-		if (down) this.y += this.SPEED;
-		if (right) this.x += this.SPEED;
-
-		this.x = Math.clamp(this.x, 0, canvas.width - this.SIZE);
-		this.y = Math.clamp(this.y, 0, canvas.height - this.SIZE);
+		this.mode.controller.tick(this);
 
 		// Check bone collisions
 		if (this.vulnerable) {
@@ -54,10 +44,21 @@ class Player extends GameObject {
 					continue;
 
 				this.vulnerable = false;
+				this.transparent = true;
 				this.hurtAudio.play();
-				this.game.scheduler.schedule(() => {
+
+				const { scheduler } = this.game;
+
+				const id = scheduler.scheduleInterval(() => {
+					this.transparent = !this.transparent;
+				}, 10);
+
+				scheduler.schedule(() => {
+					scheduler.cancelInterval(id);
+
 					this.vulnerable = true;
-				}, 30);
+					this.transparent = false;
+				}, 60);
 
 				break;
 			}
@@ -66,7 +67,15 @@ class Player extends GameObject {
 
 	public render(ctx: CanvasRenderingContext2D) {
 		ctx.imageSmoothingEnabled = false;
+
+		ctx.filter = `hue-rotate(${this.mode.hue}deg)`;
+
+		if (this.transparent) ctx.globalAlpha = 0.5;
+
 		ctx.drawImage(this.sprite, this.x, this.y, this.SIZE, this.SIZE);
+
+		ctx.filter = 'none';
+		ctx.globalAlpha = 1;
 	}
 
 	public getBounds() {

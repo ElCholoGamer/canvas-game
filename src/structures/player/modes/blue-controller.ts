@@ -2,7 +2,7 @@ import Player from '../../../objects/player';
 import ModeController from '../mode-controller';
 
 class BlueController extends ModeController {
-	private readonly GRAVITY = 0.3;
+	private readonly GRAVITY = 0.23;
 	private readonly JUMP_FORCE = 6;
 	private readonly MAX_JUMP_TICKS = 15;
 

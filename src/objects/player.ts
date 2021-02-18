@@ -38,7 +38,10 @@ class Player extends GameObject {
 			const bounds = this.getBounds();
 
 			for (const obj of this.game.objects) {
-				if (obj.options.tag !== Tag.ENEMY || !obj.getBounds().collide(bounds))
+				if (
+					obj.options.tag !== Tag.ENEMY ||
+					!obj.getBounds().collide(bounds, 3)
+				)
 					continue;
 
 				this.vulnerable = false;

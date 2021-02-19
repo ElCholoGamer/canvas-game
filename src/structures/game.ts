@@ -37,7 +37,7 @@ class Game {
 
 		// Tick objects
 		for (const obj of this._objects) {
-			obj.tick(this);
+			obj.tick();
 		}
 
 		const { width, height } = this.canvas;

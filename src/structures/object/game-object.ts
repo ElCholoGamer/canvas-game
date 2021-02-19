@@ -16,7 +16,7 @@ abstract class GameObject {
 		public readonly options: Readonly<ObjectOptions> = {}
 	) {}
 
-	public abstract tick(game: Game): void;
+	public abstract tick(): void;
 	public abstract render(ctx: CanvasRenderingContext2D): void;
 	public abstract getBounds(): RectBounds;
 

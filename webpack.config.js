@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { resolve } = require('path');
 const pkg = require('./package.json');
 
@@ -70,6 +71,12 @@ const config = {
 			chunkFilename: 'css/[name].[contenthash:8].chunk.css',
 		}),
 	],
+	optimization:
+		mode === 'development'
+			? {}
+			: {
+					minimizer: [new CssMinimizerPlugin()],
+			  },
 	devServer: {
 		contentBase: resolve(__dirname, 'build'),
 		port: 3000,

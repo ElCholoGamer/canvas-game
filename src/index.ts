@@ -5,6 +5,7 @@ import VerticalBoneSprite from './assets/img/vertical-bone.png';
 import HeartSprite from './assets/img/heart.png';
 import './index.css';
 import BoneGap from './attacks/bone-gap';
+import BoneCurve from './attacks/bone-curve';
 
 Math.clamp = function (n, min, max) {
 	return Math.max(min, Math.min(n, max));
@@ -18,8 +19,10 @@ canvas.oncontextmenu = e => {
 };
 
 const game = new Game(canvas);
+
 game.addAttack(BoneElevator);
 game.addAttack(BoneGap);
+game.addAttack(BoneCurve);
 
 (async () => {
 	await game.sprites.load('heart', HeartSprite);

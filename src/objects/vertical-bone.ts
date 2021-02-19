@@ -1,6 +1,5 @@
 import Game from '../structures/game';
 import RectBounds from '../structures/object/rect-bounds';
-import Tag from '../structures/object/tag';
 import Bone from './bone';
 
 class VerticalBone extends Bone {

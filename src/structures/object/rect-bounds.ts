@@ -13,6 +13,21 @@ class RectBounds {
 	}
 
 	public collide(rect: RectBounds, margin?: number): boolean {
+		if (
+			[
+				this.x,
+				this.y,
+				this.endX,
+				this.endY,
+				rect.x,
+				rect.y,
+				rect.endX,
+				rect.endY,
+			].includes(NaN)
+		) {
+			return false;
+		}
+
 		if (margin !== undefined) {
 			const self = new RectBounds(
 				this.x + margin,

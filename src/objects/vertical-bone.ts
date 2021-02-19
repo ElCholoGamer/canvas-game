@@ -1,33 +1,31 @@
 import Game from '../structures/game';
-import GameObject from '../structures/object/game-object';
 import RectBounds from '../structures/object/rect-bounds';
 import Tag from '../structures/object/tag';
+import Bone from './bone';
 
-class VerticalBone extends GameObject {
+class VerticalBone extends Bone {
 	public readonly HEIGHT = 200;
 	public readonly WIDTH;
 
 	private readonly sprite: HTMLImageElement;
 
-	public constructor(game: Game, public readonly SPEED: number) {
-		super(game, { tag: Tag.ENEMY });
+	public constructor(game: Game) {
+		super(game);
 
-		const bone = game.sprites.get('verticalBone');
-		if (!bone) throw new Error('Vertical bone sprite missing');
+		const sprite = game.sprites.get('verticalBone');
+		if (!sprite) throw new Error('Vertical bone sprite missing');
 
-		this.WIDTH = bone.width * (this.HEIGHT / bone.height);
+		this.WIDTH = sprite.width * (this.HEIGHT / sprite.height);
 
-		this.x = SPEED < 0 ? game.canvas.width : -this.WIDTH;
-
-		this.sprite = bone;
+		this.sprite = sprite;
 	}
 
-	public tick() {
-		this.x += this.SPEED;
+	public move() {
+		this.x += this.speed;
 
 		if (
-			(this.x < -this.WIDTH && this.SPEED < 0) ||
-			(this.x > this.game.canvas.width && this.SPEED > 0)
+			(this.x < -this.WIDTH && this.speed < 0) ||
+			(this.x > this.game.canvas.width && this.speed > 0)
 		) {
 			this.destroy();
 		}

@@ -32,38 +32,27 @@ class Player extends GameObject {
 
 	public tick() {
 		this.mode.controller.tick(this);
+	}
 
-		// Check bone collisions
-		if (this.vulnerable) {
-			const bounds = this.getBounds();
+	public hit() {
+		if (!this.vulnerable) return;
 
-			for (const obj of this.game.objects) {
-				if (
-					obj.options.tag !== Tag.ENEMY ||
-					!obj.getBounds().collide(bounds, 3)
-				)
-					continue;
+		this.vulnerable = false;
+		this.transparent = true;
+		this.hurtAudio.play();
 
-				this.vulnerable = false;
-				this.transparent = true;
-				this.hurtAudio.play();
+		const { scheduler } = this.game;
 
-				const { scheduler } = this.game;
+		const id = scheduler.scheduleInterval(() => {
+			this.transparent = !this.transparent;
+		}, 10);
 
-				const id = scheduler.scheduleInterval(() => {
-					this.transparent = !this.transparent;
-				}, 10);
+		scheduler.schedule(() => {
+			scheduler.cancelInterval(id);
 
-				scheduler.schedule(() => {
-					scheduler.cancelInterval(id);
-
-					this.vulnerable = true;
-					this.transparent = false;
-				}, 60);
-
-				break;
-			}
-		}
+			this.vulnerable = true;
+			this.transparent = false;
+		}, 60);
 	}
 
 	public render(ctx: CanvasRenderingContext2D) {

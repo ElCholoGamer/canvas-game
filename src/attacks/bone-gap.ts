@@ -1,6 +1,7 @@
 import VerticalBone from '../objects/vertical-bone';
 import Attack from '../structures/attack';
 import Game from '../structures/game';
+import GameObject from '../structures/object/game-object';
 import GameMode from '../structures/player/game-mode';
 
 class BoneGap extends Attack {
@@ -23,22 +24,28 @@ class BoneGap extends Attack {
 		const topPosition = 0;
 		const bottomPosition = this.game.canvas.height - 40;
 
-		const leftTop = new VerticalBone(this.game, this.BONE_SPEED);
-		leftTop.y = topPosition;
+		const topLeft = this.game.instantiate(VerticalBone, 0, topPosition);
+		topLeft.speed = this.BONE_SPEED;
+		topLeft.x = -topLeft.WIDTH;
 
-		const leftBottom = new VerticalBone(this.game, this.BONE_SPEED);
-		leftBottom.y = bottomPosition;
+		const bottomLeft = this.game.instantiate(
+			VerticalBone,
+			topLeft.x,
+			bottomPosition
+		);
+		bottomLeft.speed = this.BONE_SPEED;
 
-		const rightTop = new VerticalBone(this.game, -this.BONE_SPEED);
-		rightTop.y = topPosition;
+		const leftSide = this.game.canvas.width;
 
-		const rightBottom = new VerticalBone(this.game, -this.BONE_SPEED);
-		rightBottom.y = bottomPosition;
+		const rightTop = this.game.instantiate(VerticalBone, leftSide, topPosition);
+		rightTop.speed = -this.BONE_SPEED;
 
-		this.game.addObject(leftTop);
-		this.game.addObject(leftBottom);
-		this.game.addObject(rightTop);
-		this.game.addObject(rightBottom);
+		const bottomRight = this.game.instantiate(
+			VerticalBone,
+			leftSide,
+			bottomPosition
+		);
+		bottomRight.speed = -this.BONE_SPEED;
 	}
 
 	public stop() {

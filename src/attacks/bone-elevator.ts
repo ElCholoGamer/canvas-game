@@ -20,15 +20,18 @@ class BoneElevator extends Attack {
 	}
 
 	private createBones() {
-		const half = this.game.canvas.width / 2;
+		const { width, height } = this.game.canvas;
 
-		const downBone = new HorizontalBone(this.game, this.BONE_SPEED);
-		downBone.x = half - downBone.WIDTH;
-		this.game.addObject(downBone);
+		const bottomBone = this.game.instantiate(HorizontalBone, 0, height);
+		bottomBone.x = width / 2 - bottomBone.WIDTH;
+		bottomBone.speed = -this.BONE_SPEED;
 
-		const upBone = new HorizontalBone(this.game, -this.BONE_SPEED);
-		upBone.x = half;
-		this.game.addObject(upBone);
+		const topBone = this.game.instantiate(
+			HorizontalBone,
+			width / 2,
+			-bottomBone.HEIGHT
+		);
+		topBone.speed = this.BONE_SPEED;
 	}
 
 	public stop() {

@@ -21,8 +21,12 @@ class Game {
 	}
 
 	public start() {
-		this._player = new Player(this);
-		this.addObject(this._player);
+		const { width, height } = this.canvas;
+		this._player = this.instantiate(Player, width / 2, height / 2);
+
+		const offset = this._player.SIZE / 2;
+		this._player.x -= offset;
+		this._player.y -= offset;
 
 		requestAnimationFrame(this.update);
 		this.scheduler.schedule(() => this.nextAttack(), 60);
@@ -67,12 +71,22 @@ class Game {
 		}, attack.duration);
 	}
 
-	public addAttack(ctor: AttackConstructor) {
-		this.attacks.push(ctor);
+	public instantiate<T extends GameObject, A extends any[]>(
+		ctor: new (game: Game, ...args: A) => T,
+		x: number,
+		y: number,
+		...args: A
+	): T {
+		const obj = new ctor(this, ...args);
+		obj.x = x;
+		obj.y = y;
+
+		this._objects.push(obj);
+		return obj;
 	}
 
-	public addObject(obj: GameObject) {
-		this._objects.push(obj);
+	public addAttack(ctor: AttackConstructor) {
+		this.attacks.push(ctor);
 	}
 
 	public removeObject(obj: GameObject) {
